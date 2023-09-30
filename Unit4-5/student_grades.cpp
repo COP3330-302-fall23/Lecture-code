@@ -5,6 +5,34 @@
 
 using namespace std;
 
+void find_student(ifstream &InputFile)
+{
+    string student_name, student_list; 
+    bool flag;  
+    double test1, test2, test3;
+    cout<<"Write the student's name: ";
+    cin >> student_name;
+    flag = true;
+    while(!InputFile.eof())
+    {
+        InputFile >> student_list;
+        InputFile >> test1 >> test2 >> test3;
+
+        if(student_list == student_name)
+        {
+            flag = false; 
+            cout<<"Student's name: "<<student_list<<endl;
+            cout<<"Grades :"<< test1 <<", "<<test2<<", "<<test3;
+            break; 
+        }
+    }
+    if(flag)
+    {
+        cout<<"The student is not in the list."<<endl; 
+    }
+
+}
+
 int main()
 {
   string student_name;
@@ -32,27 +60,8 @@ cin >> option;
 switch (option)
 {
 case 1:
+    find_student(InputFile);
     /* code */
-    cout<<"Write the student's name: ";
-    cin >> student_name;
-    flag = true;
-    while(!InputFile.eof())
-    {
-        InputFile >> student_list;
-        InputFile >> test1 >> test2 >> test3;
-
-        if(student_list == student_name)
-        {
-           flag = false; 
-           cout<<"Student's name: "<<student_list<<endl;
-           cout<<"Grades :"<< test1 <<", "<<test2<<", "<<test3;
-           break; 
-        }
-    }
-    if(flag)
-    {
-       cout<<"The student is not in the list."<<endl; 
-    }
     break;
 case 2:
     cout<<"Write the student's name: ";
