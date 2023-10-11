@@ -9,6 +9,8 @@ void find_student(ifstream &InputFile);
 void compute_final_grade(ifstream &InputFile);
 void compute_final_grade(ifstream &InputFile);
 void compute_all_grades(ifstream &InputFile, string name_outputFile);
+void load_name(ifstream &InputFile, string name[]);
+void load_grades(ifstream &InputFile, double grades[][3]);
 int menu();
 
 
@@ -17,13 +19,8 @@ int main()
   ifstream InputFile;
   int option;
   string name_outputFile, resp;
-
-
-//   if(!InputFile)
-//   {
-//     cout<<"Error: The path or the file does not exist."<<endl;
-//     exit(1);
-//   }
+  string name[7];
+  double grades[7][3];
 
 do{
     option = menu();
@@ -40,7 +37,22 @@ do{
         cout<<"Write output file name: ";
         cin >> name_outputFile;
         compute_all_grades(InputFile,name_outputFile);  
-        break;  
+        break; 
+    case 4:
+         cout<<"Loading student's names. "<<endl;
+         load_name(InputFile,name); 
+         for(int i=0; i< 7; i++){cout<<name[i]<<endl;} 
+    case 5:
+         cout<<"Loading students' grades: "<<endl;
+         load_grades(InputFile,grades);
+         for(int i=0; i<7; i++)
+         {
+            for(int j=0; j<3; j++)
+            {
+                cout<<grades[i][j]<<" ";
+            }
+            cout<<endl;
+         }
     default:
         break;
     }
@@ -124,6 +136,8 @@ int menu()
  cout<<"1. Find a student in the list. "<<endl;
  cout<<"2. Compute the student's final grade. "<<endl;
  cout<<"3. Compute all students' final grade. "<<endl;
+ cout<<"4. load students' names: "<<endl;
+ cout<<"5. load stundets' grades: "<<endl;
  cout<<right<<setfill('*')<<setw(45)<<"."<<endl;
  cout<<"Select an option: "; 
  cin >> option;
@@ -147,4 +161,63 @@ void compute_all_grades(ifstream &InputFile, string name_outputFile)
         OutputFile << "Final grade: "<<(test1+test2+test3)/3<<endl;
     }   
     InputFile.close();
+}
+
+
+void load_name(ifstream &InputFile, string name[])
+{
+   int index=0;
+   InputFile.open("student_list.txt"); 
+   if(!InputFile)
+    {
+        cout<<"Error: The path or the file does not exist."<<endl;
+        exit(1);
+    }
+
+    while(!InputFile.eof())
+    {
+        InputFile >> name[index];
+        InputFile.ignore(1000,'\n');
+        index++;
+    }
+   InputFile.close();
+}
+
+void load_grades(ifstream &InputFile, double grades[][3])
+{
+   int index=0;
+   InputFile.open("student_list.txt"); 
+   if(!InputFile)
+    {
+        cout<<"Error: The path or the file does not exist."<<endl;
+        exit(1);
+    }
+
+    while(!InputFile.eof())
+    {
+        InputFile.ignore(100,' ');
+        for(int j=0; j<3; j++)
+        {
+            InputFile >> grades[index][j];
+        }
+        index++;
+    }
+    InputFile.close();
+}
+
+void edit_student_name(string name[], int size_array)
+{
+    string old_name, new_name;
+    cout<<"Write the student name: ";
+    cin >> old_name;
+    cout<<endl<<"Provide new name: ";
+    cin >> new_name;
+    for(int i=0; i<size_array; i++)
+    {
+        if(old_name == name[i])
+        {
+            name[i] = new_name;
+            break;
+        }
+    }
 }
