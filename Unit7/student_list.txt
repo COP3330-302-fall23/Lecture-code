@@ -1,0 +1,7 @@
+BrownCameron 60 27 98
+GibsonMarc 40 12 75
+BrownTerrel 90 55 45
+FaulknorJayden 80 75 90
+McPhersonJaewan 62 100 74
+WallsJulius 88 23 66
+SharpersonTaylor 70 92 30
